@@ -1,4 +1,4 @@
-Example Playbook
+Playbook
 ----------------
 ```yaml
 ---
