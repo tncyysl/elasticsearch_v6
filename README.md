@@ -1,3 +1,6 @@
+Example Playbook
+----------------
+```yaml
 ---
 - hosts: google
   remote_user: tuncay
@@ -5,3 +8,4 @@
   become_user: root
   roles:
    - ansible-elasticsearch
+```
