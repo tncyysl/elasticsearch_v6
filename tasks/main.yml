@@ -1,0 +1,46 @@
+---
+- name: Add jdk for Elasticsearch
+  apt: name="openjdk-8-jdk" state=present
+
+- name: Add https transport
+  apt: name="apt-transport-https" state=present
+
+- name: Add Elasticsearch apt key
+  apt_key:
+    url: https://artifacts.elastic.co/GPG-KEY-elasticsearch
+    state: present
+
+- name: Add Elasticsearch repository
+  apt_repository:
+    repo: deb https://artifacts.elastic.co/packages/6.x/apt stable main
+    state: present
+    update_cache: yes
+
+- name: Install Elasticsearch
+  apt: pkg=elasticsearch state=present
+
+- name: configure /etc/elasticsearch/elasticsearch.yml
+  template: 
+    src: elasticsearch.yml.j2         
+    dest: /etc/elasticsearch/elasticsearch.yml
+    owner: root
+    group: root
+    mode: 0644 
+  notify:
+    - restart elasticsearch
+
+- name: configure /etc/default/elasticsearch
+  template:
+    src: elasticsearch         
+    dest: /etc/default/elasticsearch
+    owner: root
+    group: root
+    mode: 0644 
+  notify:
+    - restart elasticsearch   
+
+- name: enable elasticsearch service
+  service: name=elasticsearch enabled=yes state=started
+
+- name: Starting elasticsearch service if not running
+  service: name=elasticsearch state=started

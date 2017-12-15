@@ -1,0 +1,14 @@
+---
+
+#tasks to  install
+
+elasticsearch_version: 6.0
+
+#variables for template elasticsearch.yml.j2 
+
+elasticsearch_cluster_name: elasticsearch
+elasticsearch_bind_host: 0.0.0.0
+elasticsearch_http_port: 9200
+elasticsearch_network_host: localhost
+
+
